@@ -1,0 +1,48 @@
+{
+  "name": "my-react-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^153.0.0",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.525.0",
+    "mathjs": "^14.5.3",
+    "papaparse": "^5.5.3",
+    "plotly.js-dist-min": "^3.0.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "recharts": "^3.1.0",
+    "three": "^0.178.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/d3": "^7.4.3",
+    "@types/lodash": "^4.17.20",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/three": "^0.178.1",
+    "@vitejs/plugin-react": "^4.6.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^9.30.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "^7.0.4"
+  }
+}

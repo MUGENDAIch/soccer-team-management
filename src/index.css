@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ページ全体の背景色を設定 */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb; /* gray-50 相当 */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ルート要素の設定 */
+#root {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* カスタムスクロールバー（Webkit系ブラウザ） */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@layer components {
+  /* カード系のスタイル */
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+  }
+
+  .card-header {
+    @apply px-6 py-4 bg-gray-50 border-b border-gray-200;
+  }
+
+  /* ボタンのバリエーション */
+  .btn-primary {
+    @apply bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors;
+  }
+
+  /* 入力フィールド */
+  .input-field {
+    @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white;
+  }
+
+  .select-field {
+    @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white;
+  }
+
+  /* タブナビゲーション */
+  .tab-active {
+    @apply bg-white text-green-600 border-b-2 border-green-600;
+  }
+
+  .tab-inactive {
+    @apply text-gray-600 hover:text-green-600;
+  }
+
+  /* 統計カード */
+  .stat-card-green {
+    @apply bg-green-100 p-4 rounded-lg text-center;
+  }
+
+  .stat-card-yellow {
+    @apply bg-yellow-100 p-4 rounded-lg text-center;
+  }
+
+  .stat-card-red {
+    @apply bg-red-100 p-4 rounded-lg text-center;
+  }
+
+  .stat-card-blue {
+    @apply bg-blue-100 p-4 rounded-lg text-center;
+  }
+
+  .stat-card-gray {
+    @apply bg-gray-100 p-4 rounded-lg text-center;
+  }
+
+  /* バッジスタイル */
+  .badge-green {
+    @apply px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium;
+  }
+
+  .badge-blue {
+    @apply px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium;
+  }
+
+  .badge-purple {
+    @apply px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium;
+  }
+
+  .badge-yellow {
+    @apply px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium;
+  }
+
+  .badge-red {
+    @apply px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium;
+  }
+
+  .badge-gray {
+    @apply px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium;
+  }
+}
+
+/* アニメーション効果 */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* border-b-3を追加（Tailwindにはないので手動で定義） */
+  .border-b-3 {
+    border-bottom-width: 3px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ホバーエフェクトの強化 */
+.hover-lift {
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.bg-gradient-header {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.bg-gradient-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.shadow-soft {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-medium {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-strong {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
