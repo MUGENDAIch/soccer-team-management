@@ -625,9 +625,18 @@ const SoccerTeamManagement = () => {
     return { wins, draws, losses, totalGoals, totalConceded };
   };
 
+  // バージョン情報（必要に応じて値を変更）
+  const VERSION = "v1.1.0";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50">
-      <div className="max-w-7xl mx-auto p-6">
+      {/* バージョン情報 */}
+      <div className="w-full flex justify-center pt-2 pb-1">
+        <span className="inline-block bg-gray-800 text-white text-xs sm:text-sm font-semibold rounded-full px-3 py-1 shadow-md opacity-80 select-none">
+          Soccer Team Management {VERSION}
+        </span>
+      </div>
+      <div className="max-w-7xl mx-auto p-2 sm:p-4 md:p-6">
         {/* 通知エリア */}
         <div className="fixed top-4 right-4 z-50 space-y-2">
           {notifications.map((notification) => (
@@ -666,14 +675,14 @@ const SoccerTeamManagement = () => {
 
         <div className="bg-white rounded-2xl shadow-strong overflow-hidden border border-gray-100">
           {/* ヘッダー - Google Sheets連携ステータス付き */}
-          <div className="bg-gradient-to-r from-green-600 via-green-700 to-emerald-800 text-white p-8 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-green-600 via-green-700 to-emerald-800 text-white p-4 sm:p-6 md:p-8 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full -translate-y-32 translate-x-32"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-emerald-400/20 to-transparent rounded-full translate-y-24 -translate-x-24"></div>
 
             <div className="relative z-10">
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex flex-col md:flex-row justify-between items-start gap-4 md:gap-0 mb-4">
                 <div>
-                  <h1 className="text-4xl font-bold flex items-center gap-4 mb-2">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold flex items-center gap-2 sm:gap-4 mb-2">
                     <div className="p-2 bg-white/10 rounded-xl backdrop-blur-sm">
                       <Trophy className="w-10 h-10" />
                     </div>
@@ -685,7 +694,7 @@ const SoccerTeamManagement = () => {
                 </div>
 
                 {/* 同期ステータス */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-w-[300px]">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-2 sm:p-4 min-w-[220px] sm:min-w-[300px]">
                   <div className="flex items-center gap-2 mb-3">
                     <Cloud className="w-5 h-5" />
                     <span className="font-semibold">同期ステータス</span>
@@ -775,17 +784,17 @@ const SoccerTeamManagement = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <div className="px-4 py-2 bg-white/10 rounded-full text-sm backdrop-blur-sm">
+              <div className="flex flex-wrap gap-2 sm:gap-4">
+                <div className="px-2 py-1 sm:px-4 sm:py-2 bg-white/10 rounded-full text-xs sm:text-sm backdrop-blur-sm">
                   <Calendar className="w-4 h-4 inline mr-2" />
                   {matches.length} 試合記録
                 </div>
-                <div className="px-4 py-2 bg-white/10 rounded-full text-sm backdrop-blur-sm">
+                <div className="px-2 py-1 sm:px-4 sm:py-2 bg-white/10 rounded-full text-xs sm:text-sm backdrop-blur-sm">
                   <Users className="w-4 h-4 inline mr-2" />
                   {allMembers.filter((m) => m.active).length} アクティブメンバー
                 </div>
                 {syncStatus.isAuthenticated && (
-                  <div className="px-4 py-2 bg-white/10 rounded-full text-sm backdrop-blur-sm">
+                  <div className="px-2 py-1 sm:px-4 sm:py-2 bg-white/10 rounded-full text-xs sm:text-sm backdrop-blur-sm">
                     <Cloud className="w-4 h-4 inline mr-2" />
                     リアルタイム同期
                   </div>
@@ -796,10 +805,10 @@ const SoccerTeamManagement = () => {
 
           {/* タブナビゲーション */}
           <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 shadow-soft">
-            <div className="flex overflow-x-auto">
+            <div className="flex overflow-x-auto no-scrollbar">
               <button
                 onClick={() => setCurrentTab("register")}
-                className={`px-8 py-4 flex items-center gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "register"
                     ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
                     : "text-gray-600 hover:text-green-600 hover:bg-white/50"
@@ -810,7 +819,7 @@ const SoccerTeamManagement = () => {
               </button>
               <button
                 onClick={() => setCurrentTab("matches")}
-                className={`px-8 py-4 flex items-center gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "matches"
                     ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
                     : "text-gray-600 hover:text-green-600 hover:bg-white/50"
@@ -821,7 +830,7 @@ const SoccerTeamManagement = () => {
               </button>
               <button
                 onClick={() => setCurrentTab("members")}
-                className={`px-8 py-4 flex items-center gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "members"
                     ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
                     : "text-gray-600 hover:text-green-600 hover:bg-white/50"
@@ -832,7 +841,7 @@ const SoccerTeamManagement = () => {
               </button>
               <button
                 onClick={() => setCurrentTab("stats")}
-                className={`px-8 py-4 flex items-center gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "stats"
                     ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
                     : "text-gray-600 hover:text-green-600 hover:bg-white/50"
@@ -845,7 +854,7 @@ const SoccerTeamManagement = () => {
           </div>
 
           {/* コンテンツ */}
-          <div className="p-8 bg-gradient-to-b from-white to-gray-50/50">
+          <div className="p-2 sm:p-4 md:p-8 bg-gradient-to-b from-white to-gray-50/50">
             {currentTab === "register" && (
               <div className="space-y-8 animate-fade-in">
                 <div className="card hover-lift bg-gradient-card">
@@ -865,8 +874,8 @@ const SoccerTeamManagement = () => {
                       )}
                     </div>
                   </div>
-                  <div className="p-8 space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="p-2 sm:p-4 md:p-8 space-y-4 sm:space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                       <div className="space-y-2">
                         <label className="block text-sm font-semibold text-gray-700">
                           試合日 <span className="text-red-500">*</span>
@@ -915,7 +924,7 @@ const SoccerTeamManagement = () => {
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-6">
                       <div className="space-y-2">
                         <label className="block text-sm font-semibold text-blue-700">
                           🏠 自チーム得点
@@ -956,11 +965,11 @@ const SoccerTeamManagement = () => {
                     </div>
 
                     {/* 参加メンバー */}
-                    <div className="bg-green-50 p-6 rounded-xl border border-green-200">
+                    <div className="bg-green-50 p-2 sm:p-4 md:p-6 rounded-xl border border-green-200">
                       <label className="block text-lg font-semibold text-green-800 mb-4">
                         👥 参加メンバー
                       </label>
-                      <div className="flex gap-3 mb-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
                         <select
                           value={newParticipant}
                           onChange={(e) => setNewParticipant(e.target.value)}
@@ -990,7 +999,7 @@ const SoccerTeamManagement = () => {
                           追加
                         </button>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {formData.participants.map((participant, index) => (
                           <span
                             key={`participant-${participant}-${index}`}
@@ -1017,11 +1026,11 @@ const SoccerTeamManagement = () => {
                     </div>
 
                     {/* 得点者 */}
-                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                    <div className="bg-blue-50 p-2 sm:p-4 md:p-6 rounded-xl border border-blue-200">
                       <label className="block text-lg font-semibold text-blue-800 mb-4">
                         ⚽ 得点者
                       </label>
-                      <div className="flex gap-3 mb-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
                         <select
                           value={newGoal.player}
                           onChange={(e) =>
@@ -1059,7 +1068,7 @@ const SoccerTeamManagement = () => {
                           追加
                         </button>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {formData.goals.map((goal, index) => (
                           <span
                             key={`goal-${goal.player}-${index}-${goal.count}`}
@@ -1086,11 +1095,11 @@ const SoccerTeamManagement = () => {
                     </div>
 
                     {/* アシスト */}
-                    <div className="bg-purple-50 p-6 rounded-xl border border-purple-200">
+                    <div className="bg-purple-50 p-2 sm:p-4 md:p-6 rounded-xl border border-purple-200">
                       <label className="block text-lg font-semibold text-purple-800 mb-4">
                         🎯 アシスト
                       </label>
-                      <div className="flex gap-3 mb-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
                         <select
                           value={newAssist.player}
                           onChange={(e) =>
@@ -1131,7 +1140,7 @@ const SoccerTeamManagement = () => {
                           追加
                         </button>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1 sm:gap-2">
                         {formData.assists.map((assist, index) => (
                           <span
                             key={`assist-${assist.player}-${index}-${assist.count}`}
@@ -1159,7 +1168,7 @@ const SoccerTeamManagement = () => {
 
                     <button
                       onClick={handleSubmit}
-                      className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-strong font-bold text-lg animate-fade-in hover:shadow-medium hover:scale-105"
+                      className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-8 rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-strong font-bold text-base sm:text-lg animate-fade-in hover:shadow-medium hover:scale-105"
                     >
                       {syncStatus.isAuthenticated
                         ? "🏆 試合結果を登録 & 同期"
@@ -1172,25 +1181,25 @@ const SoccerTeamManagement = () => {
 
             {currentTab === "matches" && (
               <div className="space-y-8 animate-fade-in">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 flex items-center gap-2 sm:gap-3">
                     <div className="p-2 bg-blue-100 rounded-lg">
                       <Calendar className="w-6 h-6 text-blue-600" />
                     </div>
                     試合結果一覧
                   </h2>
-                  <button className="btn-secondary flex items-center gap-2 shadow-medium">
+                  <button className="btn-secondary flex items-center gap-1 sm:gap-2 shadow-medium text-xs sm:text-base px-2 sm:px-4 py-1 sm:py-2">
                     <Download className="w-4 h-4" />
                     CSVエクスポート
                   </button>
                 </div>
 
                 {/* フィルター */}
-                <div className="card p-6 bg-gradient-to-r from-gray-50 to-blue-50 border border-blue-200">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <div className="card p-2 sm:p-4 md:p-6 bg-gradient-to-r from-gray-50 to-blue-50 border border-blue-200">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-4 flex items-center gap-1 sm:gap-2">
                     🔍 フィルター
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
                     <div className="space-y-2">
                       <label className="block text-sm font-semibold text-gray-700">
                         年度
@@ -1231,12 +1240,12 @@ const SoccerTeamManagement = () => {
                 </div>
 
                 {/* 統計サマリー */}
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-4">
                   {(() => {
                     const stats = getFilteredStats();
                     return (
                       <>
-                        <div className="stat-card-green hover-lift shadow-medium">
+                        <div className="stat-card-green hover-lift shadow-medium text-xs sm:text-base p-2 sm:p-4">
                           <div className="text-3xl font-bold text-green-700 mb-1">
                             {stats.wins}
                           </div>
@@ -1244,7 +1253,7 @@ const SoccerTeamManagement = () => {
                             🏆 勝利
                           </div>
                         </div>
-                        <div className="stat-card-yellow hover-lift shadow-medium">
+                        <div className="stat-card-yellow hover-lift shadow-medium text-xs sm:text-base p-2 sm:p-4">
                           <div className="text-3xl font-bold text-yellow-700 mb-1">
                             {stats.draws}
                           </div>
@@ -1252,7 +1261,7 @@ const SoccerTeamManagement = () => {
                             🤝 引き分け
                           </div>
                         </div>
-                        <div className="stat-card-red hover-lift shadow-medium">
+                        <div className="stat-card-red hover-lift shadow-medium text-xs sm:text-base p-2 sm:p-4">
                           <div className="text-3xl font-bold text-red-700 mb-1">
                             {stats.losses}
                           </div>
@@ -1260,7 +1269,7 @@ const SoccerTeamManagement = () => {
                             😢 敗北
                           </div>
                         </div>
-                        <div className="stat-card-blue hover-lift shadow-medium">
+                        <div className="stat-card-blue hover-lift shadow-medium text-xs sm:text-base p-2 sm:p-4">
                           <div className="text-3xl font-bold text-blue-700 mb-1">
                             {stats.totalGoals}
                           </div>
@@ -1268,7 +1277,7 @@ const SoccerTeamManagement = () => {
                             ⚽ 得点
                           </div>
                         </div>
-                        <div className="stat-card-gray hover-lift shadow-medium">
+                        <div className="stat-card-gray hover-lift shadow-medium text-xs sm:text-base p-2 sm:p-4">
                           <div className="text-3xl font-bold text-gray-700 mb-1">
                             {stats.totalConceded}
                           </div>
@@ -1286,11 +1295,11 @@ const SoccerTeamManagement = () => {
                   {filteredMatches.map((match, index) => (
                     <div
                       key={`match-${match.id}-${match.date}-${match.opponent}-${index}`}
-                      className="card hover-lift p-8 shadow-medium bg-gradient-card border border-gray-200"
+                      className="card hover-lift p-2 sm:p-4 md:p-8 shadow-medium bg-gradient-card border border-gray-200"
                     >
-                      <div className="flex justify-between items-start mb-6">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-4 sm:mb-6">
                         <div>
-                          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                          <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2">
                             🆚 {match.opponent}
                           </h3>
                           <p className="text-gray-600 flex items-center gap-2">
@@ -1315,7 +1324,7 @@ const SoccerTeamManagement = () => {
                       </div>
 
                       <div className="text-center mb-6 bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl">
-                        <div className="text-5xl font-bold text-gray-800 mb-2">
+                        <div className="text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
                           <span className="text-blue-600">
                             {match.homeScore}
                           </span>
@@ -1327,13 +1336,13 @@ const SoccerTeamManagement = () => {
                         <div className="text-sm text-gray-600">最終スコア</div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-gray-50 p-4 rounded-lg">
-                          <h4 className="font-bold text-gray-700 mb-3 flex items-center gap-2">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-6">
+                        <div className="bg-gray-50 p-2 sm:p-4 rounded-lg">
+                          <h4 className="font-bold text-gray-700 mb-1 sm:mb-3 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                             <Users className="w-4 h-4" />
                             参加メンバー
                           </h4>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1 sm:gap-2">
                             {match.participants.map((participant, pIndex) => (
                               <span
                                 key={`match-${match.id}-participant-${participant}-${pIndex}`}
@@ -1345,8 +1354,8 @@ const SoccerTeamManagement = () => {
                           </div>
                         </div>
 
-                        <div className="bg-blue-50 p-4 rounded-lg">
-                          <h4 className="font-bold text-blue-700 mb-3 flex items-center gap-2">
+                        <div className="bg-blue-50 p-2 sm:p-4 rounded-lg">
+                          <h4 className="font-bold text-blue-700 mb-1 sm:mb-3 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                             <Target className="w-4 h-4" />
                             得点者
                           </h4>
@@ -1365,8 +1374,8 @@ const SoccerTeamManagement = () => {
                           </div>
                         </div>
 
-                        <div className="bg-purple-50 p-4 rounded-lg">
-                          <h4 className="font-bold text-purple-700 mb-3 flex items-center gap-2">
+                        <div className="bg-purple-50 p-2 sm:p-4 rounded-lg">
+                          <h4 className="font-bold text-purple-700 mb-1 sm:mb-3 flex items-center gap-1 sm:gap-2 text-sm sm:text-base">
                             <Award className="w-4 h-4" />
                             アシスト
                           </h4>
@@ -1389,9 +1398,11 @@ const SoccerTeamManagement = () => {
                   ))}
 
                   {filteredMatches.length === 0 && (
-                    <div className="text-center py-16 card">
-                      <div className="text-gray-400 text-6xl mb-4">📋</div>
-                      <p className="text-gray-500 text-lg">
+                    <div className="text-center py-8 sm:py-16 card">
+                      <div className="text-gray-400 text-4xl sm:text-6xl mb-2 sm:mb-4">
+                        📋
+                      </div>
+                      <p className="text-gray-500 text-base sm:text-lg">
                         条件に合致する試合がありません
                       </p>
                     </div>
@@ -1402,19 +1413,19 @@ const SoccerTeamManagement = () => {
 
             {currentTab === "members" && (
               <div className="space-y-8 animate-fade-in">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 flex items-center gap-2 sm:gap-3">
                     <div className="p-2 bg-purple-100 rounded-lg">
                       <UserPlus className="w-6 h-6 text-purple-600" />
                     </div>
                     メンバー管理
                   </h2>
-                  <div className="flex gap-3">
-                    <button className="btn-secondary flex items-center gap-2 shadow-medium">
+                  <div className="flex flex-wrap gap-1 sm:gap-3">
+                    <button className="btn-secondary flex items-center gap-1 sm:gap-2 shadow-medium text-xs sm:text-base px-2 sm:px-4 py-1 sm:py-2">
                       <Upload className="w-4 h-4" />
                       CSVインポート
                     </button>
-                    <button className="btn-secondary flex items-center gap-2 shadow-medium">
+                    <button className="btn-secondary flex items-center gap-1 sm:gap-2 shadow-medium text-xs sm:text-base px-2 sm:px-4 py-1 sm:py-2">
                       <Download className="w-4 h-4" />
                       CSVエクスポート
                     </button>
@@ -1422,14 +1433,14 @@ const SoccerTeamManagement = () => {
                 </div>
 
                 {/* 新メンバー追加フォーム */}
-                <div className="card p-8 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 hover-lift">
-                  <h3 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-3">
+                <div className="card p-2 sm:p-4 md:p-8 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 hover-lift">
+                  <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-2 sm:mb-6 flex items-center gap-2 sm:gap-3">
                     <div className="p-2 bg-green-100 rounded-lg">
                       <UserPlus className="w-5 h-5 text-green-600" />
                     </div>
                     ✨ 新メンバー追加
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-6">
                     <div className="space-y-2">
                       <label className="block text-sm font-semibold text-gray-700">
                         👤 名前
@@ -1489,15 +1500,15 @@ const SoccerTeamManagement = () => {
 
                   <button
                     onClick={addMember}
-                    className="mt-6 btn-primary shadow-medium hover:shadow-strong"
+                    className="mt-4 sm:mt-6 btn-primary shadow-medium hover:shadow-strong text-xs sm:text-base px-2 sm:px-4 py-2 sm:py-3"
                   >
                     ➕ メンバーを追加
                   </button>
                 </div>
 
                 {/* メンバー一覧 */}
-                <div className="card overflow-hidden shadow-medium">
-                  <div className="card-header bg-gradient-to-r from-purple-50 to-blue-50">
+                <div className="card overflow-x-auto shadow-medium">
+                  <div className="card-header bg-gradient-to-r from-purple-50 to-blue-50 min-w-[480px] sm:min-w-0">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-3">
                       <Users className="w-5 h-5 text-purple-600" />
                       👥 メンバー一覧 ({allMembers.length}名)
@@ -1505,7 +1516,7 @@ const SoccerTeamManagement = () => {
                   </div>
 
                   <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full min-w-[480px] sm:min-w-0">
                       <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                         <tr>
                           <th className="px-8 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
@@ -1614,21 +1625,21 @@ const SoccerTeamManagement = () => {
 
             {currentTab === "stats" && (
               <div className="space-y-8 animate-fade-in">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 flex items-center gap-2 sm:gap-3">
                     <div className="p-2 bg-yellow-100 rounded-lg">
                       <Trophy className="w-6 h-6 text-yellow-600" />
                     </div>
                     メンバー統計
                   </h2>
-                  <button className="btn-secondary flex items-center gap-2 shadow-medium">
+                  <button className="btn-secondary flex items-center gap-1 sm:gap-2 shadow-medium text-xs sm:text-base px-2 sm:px-4 py-1 sm:py-2">
                     <Download className="w-4 h-4" />
                     統計レポート
                   </button>
                 </div>
 
-                <div className="card overflow-hidden shadow-medium">
-                  <div className="card-header bg-gradient-to-r from-yellow-50 to-orange-50">
+                <div className="card overflow-x-auto shadow-medium">
+                  <div className="card-header bg-gradient-to-r from-yellow-50 to-orange-50 min-w-[480px] sm:min-w-0">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-3">
                       <Award className="w-5 h-5 text-yellow-600" />
                       📊 個人成績一覧
