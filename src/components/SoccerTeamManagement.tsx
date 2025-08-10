@@ -55,158 +55,47 @@ const SoccerTeamManagement = () => {
     season: "",
   });
 
-  // 試合データ
-  const [matches, setMatches] = useState([
-    {
-      id: 1,
-      date: "2024-04-15",
-      season: "春季大会",
-      opponent: "FC取手",
-      homeScore: 2,
-      awayScore: 1,
-      result: "勝利",
-      participants: ["田中", "佐藤", "鈴木", "山田", "高橋"],
-      goals: [
-        { player: "田中", count: 1 },
-        { player: "佐藤", count: 1 },
-      ],
-      assists: [
-        { player: "鈴木", count: 1 },
-        { player: "山田", count: 1 },
-      ],
-    },
-    {
-      id: 2,
-      date: "2024-04-22",
-      season: "春季大会",
-      opponent: "取手ユナイテッド",
-      homeScore: 1,
-      awayScore: 3,
-      result: "敗北",
-      participants: ["田中", "佐藤", "鈴木", "山田", "高橋", "伊藤"],
-      goals: [{ player: "高橋", count: 1 }],
-      assists: [{ player: "田中", count: 1 }],
-    },
-    {
-      id: 3,
-      date: "2024-09-10",
-      season: "秋季大会",
-      opponent: "取手SC",
-      homeScore: 3,
-      awayScore: 2,
-      result: "勝利",
-      participants: ["田中", "佐藤", "鈴木", "山田", "高橋", "伊藤", "渡辺"],
-      goals: [
-        { player: "田中", count: 2 },
-        { player: "伊藤", count: 1 },
-      ],
-      assists: [
-        { player: "佐藤", count: 1 },
-        { player: "渡辺", count: 2 },
-      ],
-    },
-    {
-      id: 4,
-      date: "2023-05-20",
-      season: "春季大会",
-      opponent: "FC龍ヶ崎",
-      homeScore: 1,
-      awayScore: 1,
-      result: "引き分け",
-      participants: ["田中", "佐藤", "鈴木", "山田", "高橋"],
-      goals: [{ player: "山田", count: 1 }],
-      assists: [{ player: "田中", count: 1 }],
-    },
-    {
-      id: 5,
-      date: "2023-10-15",
-      season: "秋季大会",
-      opponent: "取手イレブン",
-      homeScore: 0,
-      awayScore: 2,
-      result: "敗北",
-      participants: ["田中", "佐藤", "鈴木", "山田", "高橋", "伊藤"],
-      goals: [],
-      assists: [],
-    },
-  ]);
+  // 型定義
+  type Match = {
+    id: number;
+    date: string;
+    season: string;
+    opponent: string;
+    homeScore: number;
+    awayScore: number;
+    result: string;
+    participants: string[];
+    goals: { player: string; count: number }[];
+    assists: { player: string; count: number }[];
+  };
 
-  // 全メンバーリスト
-  const [allMembers, setAllMembers] = useState([
-    {
-      id: 1,
-      name: "田中",
-      position: "FW",
-      joinDate: "2023-01-15",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "佐藤",
-      position: "MF",
-      joinDate: "2023-01-20",
-      active: true,
-    },
-    {
-      id: 3,
-      name: "鈴木",
-      position: "DF",
-      joinDate: "2023-02-01",
-      active: true,
-    },
-    {
-      id: 4,
-      name: "山田",
-      position: "GK",
-      joinDate: "2023-02-15",
-      active: true,
-    },
-    {
-      id: 5,
-      name: "高橋",
-      position: "FW",
-      joinDate: "2023-03-01",
-      active: true,
-    },
-    {
-      id: 6,
-      name: "伊藤",
-      position: "MF",
-      joinDate: "2023-03-15",
-      active: true,
-    },
-    {
-      id: 7,
-      name: "渡辺",
-      position: "DF",
-      joinDate: "2023-04-01",
-      active: true,
-    },
-    {
-      id: 8,
-      name: "中村",
-      position: "MF",
-      joinDate: "2023-04-15",
-      active: true,
-    },
-    {
-      id: 9,
-      name: "小林",
-      position: "DF",
-      joinDate: "2023-05-01",
-      active: true,
-    },
-    {
-      id: 10,
-      name: "加藤",
-      position: "FW",
-      joinDate: "2023-05-15",
-      active: true,
-    },
-  ]);
+  type Member = {
+    id: number;
+    name: string;
+    position: string;
+    joinDate: string;
+    active: boolean;
+  };
+
+  type FormData = {
+    date: string;
+    season: string;
+    opponent: string;
+    homeScore: string;
+    awayScore: string;
+    participants: string[];
+    goals: { player: string; count: number }[];
+    assists: { player: string; count: number }[];
+  };
+
+  // 試合データ（初期値は空配列）
+  const [matches, setMatches] = useState<Match[]>([]);
+
+  // 全メンバーリスト（初期値は空配列）
+  const [allMembers, setAllMembers] = useState<Member[]>([]);
 
   // フォームデータ
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     date: "",
     season: "春季大会",
     opponent: "",
@@ -265,7 +154,15 @@ const SoccerTeamManagement = () => {
           if (data.members) setAllMembers(data.members);
           addNotification("success", "データが同期されました");
         },
-        (error) => addNotification("error", error)
+        (error) => {
+          if (typeof error === "string") {
+            addNotification("error", error);
+          } else if ((error as Error).message !== undefined) {
+            addNotification("error", (error as Error).message);
+          } else {
+            addNotification("error", "不明なエラーが発生しました");
+          }
+        }
       );
 
       // 1. まず初期化と認証を実行
@@ -303,7 +200,11 @@ const SoccerTeamManagement = () => {
       }
     } catch (error) {
       console.error("Google Sheets authentication failed:", error);
-      addNotification("error", `Google Sheets接続に失敗: ${error.message}`);
+      let msg = "Google Sheets接続に失敗";
+      if (error instanceof Error) {
+        msg += `: ${error.message}`;
+      }
+      addNotification("error", msg);
     } finally {
       setSyncStatus((prev) => ({ ...prev, isSyncing: false }));
     }
@@ -327,7 +228,7 @@ const SoccerTeamManagement = () => {
       }));
 
       addNotification("success", "データを同期しました");
-    } catch (error) {
+    } catch {
       addNotification("error", "同期に失敗しました");
     } finally {
       setSyncStatus((prev) => ({ ...prev, isSyncing: false }));
@@ -335,7 +236,7 @@ const SoccerTeamManagement = () => {
   };
 
   // 試合結果の判定
-  const getResult = (homeScore, awayScore) => {
+  const getResult = (homeScore: number, awayScore: number) => {
     if (homeScore > awayScore) return "勝利";
     if (homeScore < awayScore) return "敗北";
     return "引き分け";
@@ -379,7 +280,7 @@ const SoccerTeamManagement = () => {
           "success",
           "試合結果を登録し、Google Sheetsに同期しました"
         );
-      } catch (error) {
+      } catch {
         addNotification(
           "warning",
           "試合結果を登録しましたが、同期に失敗しました"
@@ -432,7 +333,7 @@ const SoccerTeamManagement = () => {
           "success",
           "メンバーを追加し、Google Sheetsに同期しました"
         );
-      } catch (error) {
+      } catch {
         addNotification(
           "warning",
           "メンバーを追加しましたが、同期に失敗しました"
@@ -481,8 +382,10 @@ const SoccerTeamManagement = () => {
     }
   };
 
-  const deleteMember = (memberId) => {
+  // deleteMemberのundefinedガード
+  const deleteMember = (memberId: number) => {
     const member = allMembers.find((m) => m.id === memberId);
+    if (!member) return;
     if (confirm(`${member.name}を削除しますか？`)) {
       setAllMembers(allMembers.filter((m) => m.id !== memberId));
       if (syncStatus.isAuthenticated) {
@@ -491,7 +394,7 @@ const SoccerTeamManagement = () => {
     }
   };
 
-  const toggleMemberActive = (memberId) => {
+  const toggleMemberActive = (memberId: number) => {
     setAllMembers(
       allMembers.map((member) =>
         member.id === memberId ? { ...member, active: !member.active } : member
@@ -549,7 +452,20 @@ const SoccerTeamManagement = () => {
 
   // メンバー統計計算
   const calculateMemberStats = () => {
-    const stats = {};
+    const stats: {
+      [name: string]: {
+        id: number;
+        position: string;
+        joinDate: string;
+        active: boolean;
+        matches: number;
+        goals: number;
+        assists: number;
+        wins: number;
+        draws: number;
+        losses: number;
+      };
+    } = {};
 
     allMembers.forEach((member) => {
       stats[member.name] = {
@@ -609,7 +525,7 @@ const SoccerTeamManagement = () => {
     ...new Set(
       matches.map((match) => new Date(match.date).getFullYear().toString())
     ),
-  ].sort((a, b) => b - a);
+  ].sort((a, b) => b.localeCompare(a));
 
   // フィルター後の統計情報
   const getFilteredStats = () => {
@@ -626,7 +542,7 @@ const SoccerTeamManagement = () => {
   };
 
   // バージョン情報（必要に応じて値を変更）
-  const VERSION = "v1.2.0";
+  const VERSION = "v1.3.0";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50">
