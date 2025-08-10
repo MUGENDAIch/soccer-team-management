@@ -626,7 +626,7 @@ const SoccerTeamManagement = () => {
   };
 
   // バージョン情報（必要に応じて値を変更）
-  const VERSION = "v1.1.0";
+  const VERSION = "v1.2.0";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50">
