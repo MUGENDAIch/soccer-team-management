@@ -29,7 +29,7 @@ import {
 } from "../services/googleSheetsService";
 
 const SoccerTeamManagement = () => {
-  const [currentTab, setCurrentTab] = useState("register");
+  const [currentTab, setCurrentTab] = useState("matches");
 
   // 同期状態の管理
   const [syncStatus, setSyncStatus] = useState({
@@ -542,7 +542,7 @@ const SoccerTeamManagement = () => {
   };
 
   // バージョン情報（必要に応じて値を変更）
-  const VERSION = "v1.3.0";
+  const VERSION = "v1.4.0";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50">
@@ -675,12 +675,28 @@ const SoccerTeamManagement = () => {
                       <button
                         onClick={handleGoogleAuth}
                         disabled={syncStatus.isSyncing}
-                        className="flex-1 bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg text-sm transition-colors disabled:opacity-50"
+                        className={[
+                          "flex-1 px-3 py-2 rounded-lg text-sm transition-colors disabled:opacity-50 font-bold border-2",
+                          "bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white border-yellow-500",
+                          "shadow-lg animate-pulse",
+                          syncStatus.isSyncing
+                            ? "opacity-60"
+                            : "hover:from-yellow-500 hover:to-yellow-700 hover:scale-105",
+                        ].join(" ")}
+                        style={{
+                          boxShadow: "0 0 0 4px rgba(251, 191, 36, 0.2)",
+                        }}
+                        aria-label="Google Sheetsに接続してください"
                       >
                         {syncStatus.isSyncing ? (
                           <RefreshCw className="w-4 h-4 animate-spin mx-auto" />
                         ) : (
-                          "🔗 接続"
+                          <>
+                            <span role="img" aria-label="connect">
+                              🔗
+                            </span>{" "}
+                            接続（推奨）
+                          </>
                         )}
                       </button>
                     ) : (
@@ -723,17 +739,6 @@ const SoccerTeamManagement = () => {
           <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 shadow-soft">
             <div className="flex overflow-x-auto no-scrollbar">
               <button
-                onClick={() => setCurrentTab("register")}
-                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
-                  currentTab === "register"
-                    ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
-                    : "text-gray-600 hover:text-green-600 hover:bg-white/50"
-                }`}
-              >
-                <Plus className="w-5 h-5" />
-                試合結果登録
-              </button>
-              <button
                 onClick={() => setCurrentTab("matches")}
                 className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "matches"
@@ -745,17 +750,6 @@ const SoccerTeamManagement = () => {
                 試合結果一覧
               </button>
               <button
-                onClick={() => setCurrentTab("members")}
-                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
-                  currentTab === "members"
-                    ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
-                    : "text-gray-600 hover:text-green-600 hover:bg-white/50"
-                }`}
-              >
-                <UserPlus className="w-5 h-5" />
-                メンバー管理
-              </button>
-              <button
                 onClick={() => setCurrentTab("stats")}
                 className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
                   currentTab === "stats"
@@ -765,6 +759,28 @@ const SoccerTeamManagement = () => {
               >
                 <Users className="w-5 h-5" />
                 メンバー統計
+              </button>
+              <button
+                onClick={() => setCurrentTab("register")}
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                  currentTab === "register"
+                    ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
+                    : "text-gray-600 hover:text-green-600 hover:bg-white/50"
+                }`}
+              >
+                <Plus className="w-5 h-5" />
+                試合結果登録
+              </button>
+              <button
+                onClick={() => setCurrentTab("members")}
+                className={`px-4 sm:px-8 py-2 sm:py-4 flex items-center gap-2 sm:gap-3 transition-all duration-300 whitespace-nowrap font-medium ${
+                  currentTab === "members"
+                    ? "bg-white text-green-600 border-b-3 border-green-600 shadow-medium"
+                    : "text-gray-600 hover:text-green-600 hover:bg-white/50"
+                }`}
+              >
+                <UserPlus className="w-5 h-5" />
+                メンバー管理
               </button>
             </div>
           </div>
